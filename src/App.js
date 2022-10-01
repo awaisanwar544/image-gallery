@@ -2,6 +2,7 @@ import './App.css';
 import Home from './pages/Home'
 import Liked from './pages/Liked'
 import SearchBar from './components/SearchBar';
+import Navigation from './components/Navigation';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
             <SearchBar />
           </div>
           <nav>
-            nav
+            <Navigation />
           </nav>
         </header>
         <Routes>
