@@ -18,17 +18,22 @@ function Home({imagesList, likedImages, setLikedImages}) {
   return (
     <div>
       { modal !== 0 && <Modal setModal={setModal} likedImages={likedImages} image={imagesList.find((item) => item.id === modal)} setLikedImages={setLikedImages} /> }
-      <div className="grid grid-cols-6 grid-rows-auto gap-2 grid-flow-row-dense">
-        {imagesList.map( image => {
+      <div className="text-center grid grid-cols-12 grid-rows-auto gap-2 grid-flow-dense">
+        {imagesList.length === 0 ?
+        <p className="w-full col-span-6">Type in search and press enter to fetch awsome images collection</p>
+        :
+        imagesList.map( image => {
           const dimension = image.imageWidth / image.imageHeight;
           const span = () => {
-            if (dimension < 1 && dimension >= 0.5) return 'row-span-2 col-span-1'
+            if(dimension === 1) return 'row-span-2 col-span-2'
 
-            if (dimension < 0.5) return 'row-span-3 col-span-2'
+            if (dimension < 1 && dimension >= 0.5) return 'row-span-3 col-span-2'
 
-            if (dimension > 1 && dimension <= 1.5) return 'col-span-1'
+            if (dimension < 0.5) return 'row-span-4 col-span-2'
 
-            if (dimension > 1.5) return 'col-span-2 row-span-1'
+            if (dimension > 1 && dimension <= 1.5) return 'row-span-2 col-span-3'
+
+            if (dimension > 1.5) return 'row-span-2 col-span-4'
           }
 
           return(
