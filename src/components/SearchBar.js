@@ -1,10 +1,17 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
-function SearchBar() {
+function SearchBar({setImagesList}) {
 
   const pressEnter = (event) => {
-    if (event.key === 'Enter') {
-      console.log(event.target.value)
+    if (event.key === 'Enter' && event.target.value !== '') {
+      const fetchImages = async () => {
+        const response = await fetch(`https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_API_KEY}&q=${encodeURIComponent(event.target.value)}`);
+        const images = await response.json();
+        return images;
+      }
+      fetchImages().then(images => {
+        setImagesList(images.hits)
+      })
     }
   }
 

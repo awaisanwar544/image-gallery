@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import './App.css';
 import Home from './pages/Home'
 import Liked from './pages/Liked'
@@ -6,21 +7,27 @@ import Navigation from './components/Navigation';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
+
+  const [imagesList, setImagesList] = useState([])
+  const [likedImages, setLikedImages] = useState([])
+
   return (
     <Router>
       <div className="container mx-auto p-6">
         <header className="flex flex-row w-full justify-between items-center">
           <div className="flex flex-row justify-center items-center w-full">
-            <SearchBar />
+            <SearchBar setImagesList={setImagesList} />
           </div>
           <nav>
-            <Navigation />
+            <Navigation likedImages={likedImages} />
           </nav>
         </header>
-        <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/liked" element={<Liked/>} />
-        </Routes>
+        <div className='mt-10'>
+          <Routes>
+            <Route path="/" element={<Home imagesList={imagesList} likedImages={likedImages} setLikedImages={setLikedImages}/>} />
+            <Route path="/liked" element={<Liked likedImages={likedImages} />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );

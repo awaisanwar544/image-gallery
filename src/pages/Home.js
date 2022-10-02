@@ -1,7 +1,44 @@
-function Home() {
+import { HeartIcon as HeartIconOutline } from '@heroicons/react/24/outline'
+import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid'
+
+function Home({imagesList, likedImages, setLikedImages}) {
+  const addToLiked = (img) => {
+    setLikedImages([...likedImages, img])
+  };
+
+  const removeFromLiked = (img) => {
+    const newList = likedImages.filter(item => item.id !== img.id)
+    setLikedImages(newList)
+  };
   return (
-    <div className="App">
-    Home page
+    <div>
+      <div className="grid grid-cols-6 grid-rows-auto gap-2 grid-flow-row-dense">
+        {imagesList.map( image => {
+          const dimension = image.imageWidth / image.imageHeight;
+          const span = () => {
+            if (dimension < 1 && dimension >= 0.5) return 'row-span-2 col-span-1'
+
+            if (dimension < 0.5) return 'row-span-3 col-span-2'
+
+            if (dimension > 1 && dimension <= 1.5) return 'col-span-1'
+
+            if (dimension > 1.5) return 'col-span-2 row-span-1'
+          }
+
+          return(
+            <>
+              <div className={`${span()} rounded-lg relative`}>
+                <img src={image.webformatURL} className="object-cover h-full w-full rounded-lg z-10" alt={image.tags}/>
+                { likedImages.filter(item => item.id === image.id).length > 0 ?
+                  <HeartIconSolid className="h-16 w-16 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-transparent hover:text-red-500 cursor-pointer" key={image.id} onClick={() => {removeFromLiked(image)}}/>
+                :  
+                  <HeartIconOutline className="h-16 w-16 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-transparent hover:text-gray-900 cursor-pointer" key={image.id} onClick={() => {addToLiked(image)}}/>
+                }
+              </div>
+            </>
+          )
+        })}
+      </div>
     </div>
   );
 }
