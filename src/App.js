@@ -25,7 +25,7 @@ function App() {
         <div className='mt-10'>
           <Routes>
             <Route path="/" element={<Home imagesList={imagesList} likedImages={likedImages} setLikedImages={setLikedImages}/>} />
-            <Route path="/liked" element={<Liked likedImages={likedImages} />} />
+            <Route path="/liked" element={<Liked imagesList={imagesList} likedImages={likedImages} setLikedImages={setLikedImages} />} />
           </Routes>
         </div>
       </div>
