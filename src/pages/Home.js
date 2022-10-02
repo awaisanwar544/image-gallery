@@ -18,9 +18,9 @@ function Home({imagesList, likedImages, setLikedImages}) {
   return (
     <div>
       { modal !== 0 && <Modal setModal={setModal} likedImages={likedImages} image={imagesList.find((item) => item.id === modal)} setLikedImages={setLikedImages} /> }
-      <div className="text-center grid grid-cols-12 grid-rows-auto gap-2 grid-flow-dense">
+      <div className="grid grid-cols-12 text-center grid-rows-auto gap-2 grid-flow-dense">
         {imagesList.length === 0 ?
-        <p className="w-full col-span-6">Type in search and press enter to fetch awsome images collection</p>
+        <p className="w-full col-span-12">Type in search and press enter to fetch awsome images collection</p>
         :
         imagesList.map( image => {
           const dimension = image.imageWidth / image.imageHeight;
